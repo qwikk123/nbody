@@ -1,5 +1,7 @@
 package xd.nbody;
 
+import java.util.ArrayList;
+
 public class Body {
     double x;
     double y;
@@ -9,6 +11,7 @@ public class Body {
     double aY;
     double radius;
     double mass;
+    ArrayList<TrailCircle> trailList;
 
     public Body(double x, double y, double vX, double vY, double radius, double mass) {
         this.x = x;
@@ -19,6 +22,7 @@ public class Body {
         this.mass = mass;
         this.aX = 0;
         this.aY = 0;
+        trailList = new ArrayList<>();
     }
 
     public void move() {
@@ -28,6 +32,7 @@ public class Body {
         y += vY;
         aX = 0;
         aY = 0;
+        trailList.add(new TrailCircle(radius/2,x,y,0.02,1));
     }
 
     public void gravity(Body towards) {
@@ -44,6 +49,11 @@ public class Body {
             aX += (x > towards.x) ? (-Math.cos(theta) * a) : (Math.cos(theta) * a);
 
         } catch (ArithmeticException e) {/*do nothing*/}
+    }
+
+    public ArrayList<TrailCircle> getTrail() {
+        trailList.removeIf(i -> i.alpha <= 0);
+        return trailList;
     }
 
     @Override
