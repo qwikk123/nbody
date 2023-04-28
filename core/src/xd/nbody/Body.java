@@ -26,6 +26,8 @@ public class Body {
         vY += aY;
         x += vX;
         y += vY;
+        aX = 0;
+        aY = 0;
     }
 
     public void gravity(Body towards) {
@@ -38,8 +40,8 @@ public class Body {
         double a = Universe.G*towards.mass/Math.pow(r,2);
         try {
             double theta = Math.sin(dy/r);
-            aY = (y > towards.y) ? (-Math.sin(theta) * a) : (Math.sin(theta) * a);
-            aX = (x > towards.x) ? (-Math.cos(theta) * a) : (Math.cos(theta) * a);
+            aY += (y > towards.y) ? (-Math.sin(theta) * a) : (Math.sin(theta) * a);
+            aX += (x > towards.x) ? (-Math.cos(theta) * a) : (Math.cos(theta) * a);
 
         } catch (ArithmeticException e) {/*do nothing*/}
     }

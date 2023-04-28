@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public class Universe extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
 	ArrayList<Body> bodyList;
-	static final double G = 0.05;
+	static final double G = 1;
 
 	@Override
 	public void create () {
 		shapeRenderer = new ShapeRenderer();
 		bodyList = new ArrayList<>();
-		bodyList.add(new Body(500,500, 0,0,20, 2000));
-		for (int i = 0; i < 20; i++) {
+		bodyList.add(new Body(500,500, 0,0,20, 1000));
+		for (int i = 0; i < 10; i++) {
 			bodyList.add(new Body(
 					((Math.random() * (900 - 100)) + 100)
 					,((Math.random() * (900 - 100)) + 100)
-					,0,0,5,5));
+					,1,0,5,10));
 		}
 
 	}
@@ -32,6 +32,7 @@ public class Universe extends ApplicationAdapter {
 		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		shapeRenderer.setColor(Color.YELLOW);
 		bodyGravity();
+		bodyMove();
 		for (Body b : bodyList) {
 			shapeRenderer.circle((float)b.x, (float) b.y, (float)b.radius);
 		}
@@ -43,10 +44,14 @@ public class Universe extends ApplicationAdapter {
 			for (int j = i+1; j < bodyList.size(); j++) {
 				bodyList.get(i).gravity(bodyList.get(j));
 				bodyList.get(j).gravity(bodyList.get(i));
-				bodyList.get(i).move();
-				bodyList.get(j).move();
 
 			}
+		}
+	}
+
+	public void bodyMove() {
+		for (Body b : bodyList) {
+			b.move();
 		}
 	}
 
