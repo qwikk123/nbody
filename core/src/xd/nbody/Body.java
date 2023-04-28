@@ -32,6 +32,8 @@ public class Body {
         double dx = Math.abs(x-towards.x);
         double dy = Math.abs(y-towards.y);
 
+        if (dx < radius || dy < radius) return;
+
         double r = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
         double a = Universe.G*towards.mass/Math.pow(r,2);
         try {
@@ -40,5 +42,19 @@ public class Body {
             aX = (x > towards.x) ? (-Math.cos(theta) * a) : (Math.cos(theta) * a);
 
         } catch (ArithmeticException e) {/*do nothing*/}
+    }
+
+    @Override
+    public String toString() {
+        return "Body{" +
+                "x=" + x +
+                ", y=" + y +
+                ", vX=" + vX +
+                ", vY=" + vY +
+                ", aX=" + aX +
+                ", aY=" + aY +
+                ", radius=" + radius +
+                ", mass=" + mass +
+                '}';
     }
 }
