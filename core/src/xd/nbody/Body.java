@@ -3,22 +3,21 @@ package xd.nbody;
 import java.util.ArrayList;
 
 public class Body {
+    static ArrayList<Body> removeList = new ArrayList<>();
     double x;
     double y;
     double vX;
     double vY;
     double aX;
     double aY;
-    double radius;
     double mass;
     ArrayList<TrailCircle> trailList;
 
-    public Body(double x, double y, double vX, double vY, double radius, double mass) {
+    public Body(double x, double y, double vX, double vY, double mass) {
         this.x = x;
         this.y = y;
         this.vX = vX;
         this.vY = vY;
-        this.radius = radius;
         this.mass = mass;
         this.aX = 0;
         this.aY = 0;
@@ -32,14 +31,28 @@ public class Body {
         y += vY;
         aX = 0;
         aY = 0;
-        trailList.add(new TrailCircle(radius/2,x,y,0.02,1));
+        trailList.add(new TrailCircle(getRadius()/2,x,y,0.02,1));
     }
 
     public void gravity(Body towards) {
         double dx = Math.abs(x-towards.x);
         double dy = Math.abs(y-towards.y);
 
-        if (dx < radius || dy < radius) return;
+        if (dx < getRadius() && dy < getRadius()) {
+            if (mass >= towards.mass) {
+                mass += towards.mass;
+                removeList.add(towards);
+                vX += towards.vX/(mass/towards.mass);
+                vY += towards.vY/(mass/towards.mass);
+            }
+            else {
+                towards.mass += mass;
+                removeList.add(this);
+                towards.vX += vX/(towards.mass/mass);
+                towards.vY += vY/(towards.mass/mass);
+            }
+            return;
+        }
 
         double r = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
         double a = Universe.G*towards.mass/Math.pow(r,2);
@@ -56,6 +69,10 @@ public class Body {
         return trailList;
     }
 
+    public double getRadius() {
+        return 1+Math.sqrt(mass/2);
+    }
+
     @Override
     public String toString() {
         return "Body{" +
@@ -65,7 +82,7 @@ public class Body {
                 ", vY=" + vY +
                 ", aX=" + aX +
                 ", aY=" + aY +
-                ", radius=" + radius +
+                ", radius=" + getRadius() +
                 ", mass=" + mass +
                 '}';
     }

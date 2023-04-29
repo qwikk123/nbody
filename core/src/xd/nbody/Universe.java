@@ -12,21 +12,25 @@ public class Universe extends ApplicationAdapter {
 	ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
 	ArrayList<Body> bodyList;
-	static final double G = 0.2;
+	static final double G = 0.5;
 
 	@Override
 	public void create () {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1000, 1000);
+		camera.setToOrtho(false, 5000, 5000);
 
 		shapeRenderer = new ShapeRenderer();
 		bodyList = new ArrayList<>();
-		bodyList.add(new Body(500,500, 0,0,20, 10000));
-		for (int i = 0; i < 200; i++) {
+		bodyList.add(new Body(0,0, 0,0, 5000));
+		for (int i = 0; i < 500; i++) {
 			bodyList.add(new Body(
-					((Math.random() * (900 - 100)) + 100)
-					,((Math.random() * (900 - 100)) + 100)
-					,Math.random()*(3 -(-3)) -3,Math.random()*(3 -(-3)) -3,5,10));
+					((Math.random() * (1500 - (-1500))) + (-1500))
+					,((Math.random() * (1500 - (-1500))) + (-1500))
+					,Math.random()*(1 -(-1)) -1,Math.random()*(1 -(-1)) -1,10));
+//			bodyList.add(new Body(
+//					((Math.random() * (1000 - (-1000))) + (-1000))
+//					,((Math.random() * (1000 - (-1000))) + (-1000))
+//					,0,0,10));
 		}
 
 	}
@@ -47,7 +51,7 @@ public class Universe extends ApplicationAdapter {
 		createTrail(shapeRenderer);
 		shapeRenderer.setColor(Color.YELLOW);
 		for (Body b : bodyList) {
-			shapeRenderer.circle((float)b.x, (float) b.y, (float)b.radius);
+			shapeRenderer.circle((float)b.x, (float) b.y, (float)b.getRadius());
 		}
 		shapeRenderer.end();
 	}
@@ -60,6 +64,8 @@ public class Universe extends ApplicationAdapter {
 
 			}
 		}
+		bodyList.removeAll(Body.removeList);
+		Body.removeList = new ArrayList<>();
 	}
 
 	public void bodyMove() {
