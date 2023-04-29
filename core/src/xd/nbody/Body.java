@@ -42,14 +42,14 @@ public class Body {
             if (mass >= towards.mass) {
                 mass += towards.mass;
                 removeList.add(towards);
-                vX += towards.vX/(mass/towards.mass);
-                vY += towards.vY/(mass/towards.mass);
+                vX += towards.vX*(towards.mass/mass);
+                vY += towards.vY*(towards.mass/mass);
             }
             else {
                 towards.mass += mass;
                 removeList.add(this);
-                towards.vX += vX/(towards.mass/mass);
-                towards.vY += vY/(towards.mass/mass);
+                towards.vX += vX*(mass/towards.mass);
+                towards.vY += vY*(mass/towards.mass);
             }
             return;
         }

@@ -17,16 +17,16 @@ public class Universe extends ApplicationAdapter {
 	@Override
 	public void create () {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 5000, 5000);
+		camera.setToOrtho(false, 2500, 2500);
 
 		shapeRenderer = new ShapeRenderer();
 		bodyList = new ArrayList<>();
 		bodyList.add(new Body(0,0, 0,0, 5000));
-		for (int i = 0; i < 500; i++) {
+		for (int i = 0; i < 250; i++) {
 			bodyList.add(new Body(
 					((Math.random() * (1500 - (-1500))) + (-1500))
 					,((Math.random() * (1500 - (-1500))) + (-1500))
-					,Math.random()*(1 -(-1)) -1,Math.random()*(1 -(-1)) -1,10));
+					,Math.random()*(2 -(-2)) -2,Math.random()*(2 -(-2)) -2,20));
 //			bodyList.add(new Body(
 //					((Math.random() * (1000 - (-1000))) + (-1000))
 //					,((Math.random() * (1000 - (-1000))) + (-1000))
