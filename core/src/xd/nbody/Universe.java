@@ -9,28 +9,25 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.ArrayList;
 
 public class Universe extends ApplicationAdapter {
-	ShapeRenderer shapeRenderer;
-	OrthographicCamera camera;
-	ArrayList<Body> bodyList;
-	static final double G = 0.5;
+	protected ShapeRenderer shapeRenderer;
+	protected OrthographicCamera camera;
+	protected ArrayList<Body> bodyList;
+	protected static final double G = 0.2;
 
 	@Override
 	public void create () {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 2500, 2500);
+		camera.setToOrtho(false, 3000, 3000);
 
 		shapeRenderer = new ShapeRenderer();
 		bodyList = new ArrayList<>();
-		bodyList.add(new Body(0,0, 0,0, 5000));
+		bodyList.add(new Body(0,500, 1,0, 5000));
+		bodyList.add(new Body(0,-500, -1,0, 5000));
 		for (int i = 0; i < 250; i++) {
 			bodyList.add(new Body(
 					((Math.random() * (1500 - (-1500))) + (-1500))
 					,((Math.random() * (1500 - (-1500))) + (-1500))
-					,Math.random()*(2 -(-2)) -2,Math.random()*(2 -(-2)) -2,20));
-//			bodyList.add(new Body(
-//					((Math.random() * (1000 - (-1000))) + (-1000))
-//					,((Math.random() * (1000 - (-1000))) + (-1000))
-//					,0,0,10));
+					,Math.random()*(2 -(-2)) -2,Math.random()*(2 -(-2)) -2,50));
 		}
 
 	}

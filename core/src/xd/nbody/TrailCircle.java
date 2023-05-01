@@ -1,11 +1,11 @@
 package xd.nbody;
 
 public class TrailCircle {
-    double radius;
-    double x;
-    double y;
-    double decay;
-    double alpha;
+    protected double radius;
+    protected double x;
+    protected double y;
+    protected double decay;
+    protected double alpha;
 
     public TrailCircle(double radius, double x, double y, double decay, double alpha) {
         this.radius = radius;

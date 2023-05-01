@@ -3,15 +3,15 @@ package xd.nbody;
 import java.util.ArrayList;
 
 public class Body {
-    static ArrayList<Body> removeList = new ArrayList<>();
-    double x;
-    double y;
-    double vX;
-    double vY;
-    double aX;
-    double aY;
-    double mass;
-    ArrayList<TrailCircle> trailList;
+    protected static ArrayList<Body> removeList = new ArrayList<>();
+    protected double x;
+    protected double y;
+    protected double vX;
+    protected double vY;
+    protected double aX;
+    protected double aY;
+    protected double mass;
+    protected ArrayList<TrailCircle> trailList;
 
     public Body(double x, double y, double vX, double vY, double mass) {
         this.x = x;
